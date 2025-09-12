@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { GradientBackground } from "../bg/gradient";
+import songsInfo from "../../musicInfo.json";
 
 export class Preloader extends Scene {
 	logo!: Phaser.GameObjects.Image;
@@ -8,13 +8,6 @@ export class Preloader extends Scene {
 
 	constructor() {
 		super("Preloader");
-	}
-
-	create() {
-		// new GradientBackground(this, {
-		// 	colors: ["#a200b8", "#ff17e8", "#fd6eef"],
-		// 	speed: 0.5
-		// });
 	}
 
 	init() {
@@ -38,27 +31,57 @@ export class Preloader extends Scene {
 
 	preload() {
 		this.load.setPath("assets");
+		this.load.font("anime", "fonts/ComicShark.ttf");
+		this.load.image("RectangleButton_X2", "UIAnimeNovellaCasual/BigButtons/RectangleButton_X2.png");
+		this.load.image("disk", "qlementine-icons--disk-16.svg");
+
+		const songs = Object.keys(songsInfo);
+		songs.forEach((song) => {
+			this.load.audio(song, `music/${song}`);
+		});
 	}
 
 	goToMenu() {
-		this.tweens.add({
-			targets: this.logo,
-			x: 100,
-			y: 50,
-			displayWidth: 120,
-			displayHeight: this.logo.height * (120 / this.logo.width),
-			duration: 1200,
-			ease: "Sine.easeInOut",
-			onComplete: () => {
-				this.scene.start("MainMenu");
-			}
+		const button = this.add
+			.image(512, 469, "RectangleButton_X2")
+			.setInteractive({ useHandCursor: true, cursor: "pointer" });
+
+		const text = this.add
+			.text(button.x, button.y - 2, "Play", {
+				fontFamily: "anime",
+				fontSize: "28px",
+				color: "#fd6eef"
+			})
+			.setOrigin(0.5);
+
+		button.on("pointerover", () => {
+			button.setTint(0xfbe6ff);
 		});
 
-		this.tweens.add({
-			targets: [this.bar, this.barWrapper],
-			alpha: 0,
-			duration: 600,
-			ease: "Linear"
+		button.on("pointerout", () => {
+			button.clearTint();
+		});
+
+		button.on("pointerdown", () => {
+			this.tweens.add({
+				targets: this.logo,
+				x: 100,
+				y: 50,
+				displayWidth: 120,
+				displayHeight: this.logo.height * (120 / this.logo.width),
+				duration: 1200,
+				ease: "Sine.easeInOut",
+				onComplete: () => {
+					this.scene.start("MainMenu");
+				}
+			});
+
+			this.tweens.add({
+				targets: [this.bar, this.barWrapper, button, text],
+				alpha: 0,
+				duration: 600,
+				ease: "Linear"
+			});
 		});
 	}
 }

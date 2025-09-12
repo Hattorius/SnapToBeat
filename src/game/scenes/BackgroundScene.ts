@@ -8,7 +8,7 @@ export class BackgroundScene extends Scene {
 
 	create() {
 		new GradientBackground(this, {
-			colors: ["#a200b8", "#ff17e8", "#fd6eef"],
+			colors: ["#e100ff", "#ff17e8", "#fd6eef"],
 			speed: 0.5,
 			key: "GLOBAL_GRADIENT"
 		});

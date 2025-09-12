@@ -10,7 +10,10 @@ const config: Phaser.Types.Core.GameConfig = {
 	width: 1024,
 	height: 768,
 	backgroundColor: "#028af8",
-	scene: [Boot, Preloader, MainMenu, BackgroundScene]
+	scene: [Boot, Preloader, MainMenu, BackgroundScene],
+	audio: {
+		disableWebAudio: false
+	}
 };
 
 const StartGame = (parent: string) => {
