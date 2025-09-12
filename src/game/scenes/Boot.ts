@@ -1,15 +1,16 @@
-import { Scene } from 'phaser';
+import { Scene } from "phaser";
 
 export class Boot extends Scene {
 	constructor() {
-		super('Boot');
+		super("Boot");
 	}
 
 	preload() {
-		// Do simple assets loading that are required for the loading screen
+		this.load.image("logo", "assets/logo.png");
 	}
 
 	create() {
-		//this.scene.start("Preloader")
+		this.scene.launch("BackgroundScene");
+		this.scene.start("Preloader");
 	}
 }

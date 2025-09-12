@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import type { Game, Scene } from 'phaser';
+	import type { Game, Scene } from "phaser";
 
 	export type TPhaserRef = {
 		game: Game | null;
@@ -8,9 +8,9 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import StartGame from '../game/main';
-	import { EventBus } from '../game/EventBus';
+	import { onMount } from "svelte";
+	import StartGame from "../game/main";
+	import { EventBus } from "../game/EventBus";
 
 	export let phaserRef: TPhaserRef = {
 		game: null,
@@ -18,9 +18,9 @@
 	};
 
 	onMount(() => {
-		phaserRef.game = StartGame('game-container');
+		phaserRef.game = StartGame("game-container");
 
-		EventBus.on('current-scene-ready', (scene_instance: Scene) => {
+		EventBus.on("current-scene-ready", (scene_instance: Scene) => {
 			phaserRef.scene = scene_instance;
 		});
 	});
