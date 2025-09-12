@@ -6,9 +6,12 @@ type SongInfo = { artist: string; title: string };
 const songsInfo: Record<string, SongInfo> = songsInfoJson;
 
 export class MainMenu extends Scene {
-	private music!: Phaser.Sound.WebAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.NoAudioSound;
-    private title!: Phaser.GameObjects.Text;
-    private subtitle!: Phaser.GameObjects.Text;
+	private music!:
+		| Phaser.Sound.WebAudioSound
+		| Phaser.Sound.HTML5AudioSound
+		| Phaser.Sound.NoAudioSound;
+	private title!: Phaser.GameObjects.Text;
+	private subtitle!: Phaser.GameObjects.Text;
 
 	constructor() {
 		super("MainMenu");
@@ -23,17 +26,16 @@ export class MainMenu extends Scene {
 			loop: true,
 			volume: 1
 		});
-        this.music.manager.pauseOnBlur = false;
+		this.music.manager.pauseOnBlur = false;
 		this.music.play();
 
-
-        const currentlyPlaying = this.add.container(100, 800) // 660
+		const currentlyPlaying = this.add.container(100, 800); // 660
 
 		const disk = this.add.image(0, 0, "disk");
 		disk.displayWidth = 48;
 		disk.displayHeight = 48;
 
-        currentlyPlaying.add(disk);
+		currentlyPlaying.add(disk);
 
 		this.tweens.add({
 			targets: disk,
@@ -46,25 +48,30 @@ export class MainMenu extends Scene {
 			fontFamily: "anime",
 			fontSize: "18px",
 			color: "#ffffff",
-            align: "center",
+			align: "center"
 		});
-        this.title.setOrigin(0.5, 0);
-        currentlyPlaying.add(this.title);
+		this.title.setOrigin(0.5, 0);
+		currentlyPlaying.add(this.title);
 
-		this.subtitle = this.add.text(0, (disk.displayHeight / 2 + 10) + this.title.height + 4, songsInfo["0.mp3"].artist, {
-			fontFamily: "anime",
-			fontSize: "10px",
-			color: "#ffffff",
-            align: "center",
-		});
-        this.subtitle.setOrigin(0.5, 0);
-        currentlyPlaying.add(this.subtitle);
+		this.subtitle = this.add.text(
+			0,
+			disk.displayHeight / 2 + 10 + this.title.height + 4,
+			songsInfo["0.mp3"].artist,
+			{
+				fontFamily: "anime",
+				fontSize: "10px",
+				color: "#ffffff",
+				align: "center"
+			}
+		);
+		this.subtitle.setOrigin(0.5, 0);
+		currentlyPlaying.add(this.subtitle);
 
-        this.tweens.add({
+		this.tweens.add({
 			targets: currentlyPlaying,
 			duration: 300,
-            y: 660,
-            ease: "Sine.easeInOut",
+			y: 660,
+			ease: "Sine.easeInOut"
 		});
 	}
 
@@ -174,11 +181,11 @@ export class MainMenu extends Scene {
 			list.add(item);
 		});
 
-        this.tweens.add({
+		this.tweens.add({
 			targets: list,
 			duration: 300,
-            x: VIEWPORT.x,
-            ease: "Sine.easeInOut",
+			x: VIEWPORT.x,
+			ease: "Sine.easeInOut"
 		});
 	}
 
@@ -194,15 +201,15 @@ export class MainMenu extends Scene {
 		music.play();
 		this.music.destroy();
 		this.music = music;
-        this.music.manager.pauseOnBlur = false;
+		this.music.manager.pauseOnBlur = false;
 
-        this.title.setText(songsInfo[fileName].title);
-        this.subtitle.setText(songsInfo[fileName].artist);
+		this.title.setText(songsInfo[fileName].title);
+		this.subtitle.setText(songsInfo[fileName].artist);
 	}
 
 	onItemClick(fileName: string) {
-        this.startGame(fileName);
-    }
+		this.startGame(fileName);
+	}
 
-    startGame(fileName: string) {}
+	startGame(fileName: string) {}
 }
