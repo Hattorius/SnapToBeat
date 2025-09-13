@@ -211,5 +211,10 @@ export class MainMenu extends Scene {
 		this.startGame(fileName);
 	}
 
-	startGame(fileName: string) {}
+	startGame(fileName: string) {
+		this.scene.start("Play", { fileName });
+		this.music.stop();
+		this.music.destroy();
+		this.scene.remove();
+	}
 }

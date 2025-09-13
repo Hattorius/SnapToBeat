@@ -6,6 +6,9 @@ export default defineConfig({
 	server: {
 		fs: {
 			allow: ["./static/assets"]
-		}
+		},
+		allowedHosts: [
+			"a82ea4f71e01.ngrok-free.app"
+		]
 	}
 });

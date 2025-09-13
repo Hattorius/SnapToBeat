@@ -4,13 +4,14 @@ import { Boot } from "./scenes/Boot";
 import { Preloader } from "./scenes/Preloader";
 import { MainMenu } from "./scenes/MainMenu";
 import { BackgroundScene } from "./scenes/BackgroundScene";
+import { Play } from "./scenes/Play";
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: AUTO,
 	width: 1024,
 	height: 768,
 	backgroundColor: "#028af8",
-	scene: [Boot, Preloader, MainMenu, BackgroundScene],
+	scene: [Boot, Preloader, MainMenu, BackgroundScene, Play],
 	audio: {
 		disableWebAudio: false
 	}
